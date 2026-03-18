@@ -1,0 +1,66 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Data shape: (5000, 30)
+[resume] Found 625 completed trials in sweep_trials_er.csv.
+[plan] Total trials: 3125 | Pending: 0 | Skipped: 3125
+Param sweep (~0s remaining est.): 0it [00:00, ?it/s]Param sweep (~0s remaining est.): 0it [00:00, ?it/s]
+
+Top 10 aggregated configs (by mean best_score):
+ crossover_proportion  crossover_edges  mutation_prob  elitism_proportion           mean         std  count
+                  0.2                5            1.0                 0.1 -115660.812577 1519.422076      2
+                  0.3                4            1.0                 0.1 -116644.590697  587.722096      2
+                  0.5                1            1.0                 0.1 -116666.390420 1683.217810      2
+                  0.2                4            0.9                 0.1 -116734.540530 1783.021418      2
+                  0.2                4            1.0                 0.1 -117894.918312 2512.301879      2
+                  0.2                5            0.9                 0.2 -117898.087716 5634.586662      2
+                  0.4                4            1.0                 0.2 -117998.373265 2516.915055      2
+                  0.3                5            0.9                 0.1 -118220.104842 3668.882229      2
+                  0.2                5            0.9                 0.1 -118262.888133 1057.296936      2
+                  0.3                3            1.0                 0.1 -118290.887200  306.536110      2
+Data shape: (5000, 20)
+[resume] Found 625 completed trials in sweep_trials_ws.csv.
+[plan] Total trials: 3125 | Pending: 0 | Skipped: 3125
+Param sweep (~0s remaining est.): 0it [00:00, ?it/s]Param sweep (~0s remaining est.): 0it [00:00, ?it/s]
+
+Top 10 aggregated configs (by mean best_score):
+ crossover_proportion  crossover_edges  mutation_prob  elitism_proportion          mean         std  count
+                  0.4                4            1.0                 0.1 -73392.116155 1646.819760      2
+                  0.2                4            1.0                 0.1 -74299.134472 1332.632284      2
+                  0.3                1            0.9                 0.2 -74595.651581 1073.744481      2
+                  0.2                1            1.0                 0.3 -75200.478430  315.630201      2
+                  0.2                5            1.0                 0.3 -75226.178846 4344.171872      2
+                  0.3                5            0.9                 0.1 -75230.854043 4492.390527      2
+                  0.3                4            0.6                 0.1 -75328.552178  130.572815      2
+                  0.3                4            1.0                 0.2 -75357.150222  980.245171      2
+                  0.2                2            1.0                 0.1 -75399.961114 4654.433723      2
+                  0.2                2            1.0                 0.4 -75481.333340  920.283404      2
+Data shape: (5000, 20)
+[resume] Found 625 completed trials in sweep_trials_ba.csv.
+[plan] Total trials: 3125 | Pending: 0 | Skipped: 3125
+Param sweep (~0s remaining est.): 0it [00:00, ?it/s]Param sweep (~0s remaining est.): 0it [00:00, ?it/s]
+
+Top 10 aggregated configs (by mean best_score):
+ crossover_proportion  crossover_edges  mutation_prob  elitism_proportion          mean         std  count
+                  0.3                5            0.9                 0.4 -61245.137120 1274.507814      2
+                  0.2                3            0.9                 0.1 -61350.455503 2052.258739      2
+                  0.2                5            0.9                 0.1 -61500.044200 2870.874641      2
+                  0.5                2            0.6                 0.1 -61600.761466 2990.896529      2
+                  0.3                3            0.8                 0.1 -61687.182692  850.927960      2
+                  0.2                5            1.0                 0.2 -61725.362454 2582.440939      2
+                  0.2                2            1.0                 0.3 -61869.724669 1850.700039      2
+                  0.2                2            0.7                 0.1 -61915.960658 1560.258595      2
+                  0.2                3            1.0                 0.1 -62152.690181  673.337026      2
+                  0.3                5            0.9                 0.2 -62310.635972 1594.912275      2

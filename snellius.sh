@@ -3,9 +3,9 @@
 #SBATCH --partition=genoa
 #SBATCH --job-name=paramsweep
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=128
-#SBATCH --time=01:00:00
-#SBATCH --output=slurm_output_%A.out
+#SBATCH --cpus-per-task=192
+#SBATCH --time=02:00:00
+#SBATCH --output=paramsweep.out
 
 module purge
 module load 2025

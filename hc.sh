@@ -3,7 +3,7 @@
 #SBATCH --partition=genoa
 #SBATCH --job-name=hc
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=128
+#SBATCH --cpus-per-task=190
 #SBATCH --time=05:00:00
 #SBATCH --output=slurm_output_%A.out
 
