@@ -37,7 +37,7 @@ PARAM_GRID = {
 
 N_REPEATS = 5
 POPULATION_SIZE = 20
-GENERATIONS = 100
+GENERATIONS = 150
 N_JOBS = 1
 OUTPUT_DIR = Path("results/param_sweeps")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -294,7 +294,7 @@ def sweep_parameters(
 if __name__ == "__main__":
     import multiprocessing as mp
 
-    GENERATIONS = 100
+    GENERATIONS = 150
     POPULATION_SIZE = 20
     N_REPEATS = 5
     N_JOBS = 1
