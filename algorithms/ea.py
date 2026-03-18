@@ -61,7 +61,7 @@ class GeneticBNSearchMatrix:
         crossover_proportion: float = 0.2,
         crossover_edges: int = 2,
         mutation_prob: float = 1.0,
-        elitism_proportion: float = 0.3,
+        elitism_proportion: float = 0.2,
         connect_disconnected: bool = False,
         max_parents: int | 2 = 2,
         score_fn: Union[str, Callable[[nx.DiGraph, pd.DataFrame], float]] = "bic",
