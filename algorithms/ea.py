@@ -65,7 +65,7 @@ class GeneticBNSearchMatrix:
         connect_disconnected: bool = False,
         max_parents: int | 2 = 2,
         score_fn: Union[str, Callable[[nx.DiGraph, pd.DataFrame], float]] = "bic",
-        n_jobs: int = 10,
+        n_jobs: int = 1,
         random_state: int | None = None,
         hillclimb_seed: bool = False,
         show_progress: bool = False,
@@ -571,19 +571,19 @@ if __name__ == "__main__":
     # simple test
     import pandas as pd
 
-    subset = "toyMedium"
-    d_idx = 0
+    subset = "jpmf_data"
+    d_idx = 350
 
-    df = pd.read_csv(f"data/syntheticToy/{subset}/Data_Graph_{d_idx}.csv")
+    df = pd.read_csv(f"data/datasets//{subset}/Data_Graph_{d_idx}.csv")
 
     start_time = pd.Timestamp.now()
     graph, score = genetic_bn_search_matrix(
         data=df,
         population_size=20,
-        generations=20,
+        generations=100,
         show_progress=True,
         final_greedy=True,
-        n_jobs=1
+        n_jobs=1,
     )
     
     print("Best score:", score)

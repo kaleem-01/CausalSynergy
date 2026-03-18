@@ -69,6 +69,8 @@ def run_experiments(reps, algorithm, algorithm_func, configs):
 
 
 if __name__ == "__main__":
+    import multiprocessing as mp
+
     algorithms = {
         'pc': run_pc,   # original PC algorithm
         'pc_gsq':run_pc_gsq,  # PC algorithm with G-square test
@@ -93,7 +95,7 @@ if __name__ == "__main__":
         """
         
 
-        run_algorithm_synthetic(directory=os.path.join("data", "datasets"), n_jobs=20, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
+        run_algorithm_synthetic(directory=os.path.join("data", "datasets"), n_jobs= mp.cpu_count() - 1, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_algorithm_synthetic(directory=os.path.join("data", "syntheticBinary"), reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_experiments(reps=reps, algorithm=algo_name, algorithm_func=algo_func, configs=configs)
         
