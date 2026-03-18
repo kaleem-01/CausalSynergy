@@ -72,9 +72,9 @@ if __name__ == "__main__":
     import multiprocessing as mp
 
     algorithms = {
-        'pc': run_pc,   # original PC algorithm
+        # 'pc': run_pc,   # original PC algorithm
         'pc_gsq':run_pc_gsq,  # PC algorithm with G-square test
-        'ges': run_ges,
+        # 'ges': run_ges,
         # 'hc': run_hc,
         # "ea_ues":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0),
         # "ea_ies":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0.5),
