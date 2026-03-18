@@ -249,9 +249,11 @@ def categorize_colliders(extra_colliders, df):
     # This function would implement the logic to categorize extra colliders into "synergistic" vs "pairwise"
     extra_syn = []
     extra_pairwise = []
-    sorted_triplets = Parallel(n_jobs=5, backend="loky")(
-    delayed(classify_collider_by_pid)(df, triplet) for triplet in extra_colliders
-    )           
+    
+    sorted_triplets = [
+        classify_collider_by_pid(df, triplet) for triplet in extra_colliders
+    ]
+    
     for each_triplet in sorted_triplets:
         if each_triplet["label"] == "synergistic":
             extra_syn.append(each_triplet["triplet"])
