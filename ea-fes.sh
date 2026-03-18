@@ -10,6 +10,7 @@
 module purge
 module load 2025
 module load Anaconda3/2025.06-1
+module load MPICH/4.3.0-GCC-14.2.0
 
 source env/bin/activate
 srun python main_ea-fes.py
