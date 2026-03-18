@@ -1,0 +1,8 @@
+{
+  "i": 62,
+  "total_vars": 10,
+  "dag_family": "ba",
+  "p_syn": 1.0,
+  "p_noise": 0.0,
+  "samples": 2000
+}

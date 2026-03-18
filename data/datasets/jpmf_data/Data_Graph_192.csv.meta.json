@@ -1,0 +1,8 @@
+{
+  "i": 192,
+  "family": "er",
+  "target_mi": 0.792481250360578,
+  "pair_probs": 0.4,
+  "syn_cutoff": 0.5,
+  "num_vars": 30
+}

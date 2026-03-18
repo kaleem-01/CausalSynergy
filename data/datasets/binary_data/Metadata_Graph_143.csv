@@ -1,0 +1,5 @@
+Combs,Type
+"[1, 2, 4]",XOR
+"[5, 6]",Pairwise
+"[1, 8]",Pairwise
+"[2, 8, 9]",NOR

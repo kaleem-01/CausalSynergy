@@ -1,0 +1,8 @@
+{
+  "i": 667,
+  "family": "small-world",
+  "target_mi": 0.4754887502163468,
+  "pair_probs": 0.7,
+  "syn_cutoff": 0.5,
+  "num_vars": 30
+}

@@ -1,0 +1,15 @@
+Combs,Type
+"[0, 6]",Pairwise
+"[0, 7]",Pairwise
+"[4, 8]",Pairwise
+"[5, 9]",Pairwise
+"[5, 10]",Pairwise
+"[3, 6, 11]",Pairwise
+"[1, 7, 12]",SRV
+"[2, 7, 13]",SRV
+"[3, 9, 14]",SRV
+"[4, 11, 15]",Pairwise
+"[11, 16]",Pairwise
+"[9, 13, 17]",Pairwise
+"[13, 18]",Pairwise
+"[12, 18, 19]",SRV

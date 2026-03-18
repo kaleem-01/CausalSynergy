@@ -1,0 +1,14 @@
+Combs,Type
+"[0, 2]",Pairwise
+"[3, 4]",Pairwise
+"[2, 5]",Pairwise
+"[1, 2, 7]",XOR
+"[3, 10]",Pairwise
+"[5, 12]",Pairwise
+"[11, 13]",Pairwise
+"[0, 9, 14]",XOR
+"[8, 14, 15]",OR
+"[13, 14, 16]",XOR
+"[4, 11, 17]",NAND
+"[7, 15, 18]",AND
+"[5, 13, 19]",XOR

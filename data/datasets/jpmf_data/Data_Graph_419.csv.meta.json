@@ -1,0 +1,8 @@
+{
+  "i": 419,
+  "family": "ba",
+  "target_mi": 0.9509775004326936,
+  "pair_probs": 0.7,
+  "syn_cutoff": 0.4,
+  "num_vars": 30
+}

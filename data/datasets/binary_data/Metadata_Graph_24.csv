@@ -1,0 +1,7 @@
+Combs,Type
+"[0, 2]",Pairwise
+"[0, 3]",Pairwise
+"[1, 2, 4]",AND
+"[3, 6, 7]",OR
+"[3, 5, 8]",OR
+"[4, 9]",Pairwise
