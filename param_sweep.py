@@ -296,7 +296,7 @@ if __name__ == "__main__":
 
     GENERATIONS = 100
     POPULATION_SIZE = 20
-    N_REPEATS = 2
+    N_REPEATS = 5
     N_JOBS = 1
 
     
