@@ -94,7 +94,7 @@ if __name__ == "__main__":
         Replications: {reps}
         """
         
-
+        print(mp.cpu_count())
         run_algorithm_synthetic(directory=os.path.join("data", "datasets"), n_jobs= mp.cpu_count() - 1, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_algorithm_synthetic(directory=os.path.join("data", "syntheticBinary"), reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_experiments(reps=reps, algorithm=algo_name, algorithm_func=algo_func, configs=configs)

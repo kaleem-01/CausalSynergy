@@ -72,9 +72,9 @@ if __name__ == "__main__":
     import multiprocessing as mp
 
     algorithms = {
-        # 'pc': run_pc,   # original PC algorithm
+        'pc': run_pc,   # original PC algorithm
         'pc_gsq':run_pc_gsq,  # PC algorithm with G-square test
-        # 'ges': run_ges,
+        'ges': run_ges,
         # 'hc': run_hc,
         # "ea_ues":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0),
         # "ea_ies":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0.5),
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         Replications: {reps}
         """
         
-
+        print(mp.cpu_count())
         run_algorithm_synthetic(directory=os.path.join("data", "datasets"), n_jobs= mp.cpu_count() - 1, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_algorithm_synthetic(directory=os.path.join("data", "syntheticBinary"), reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_experiments(reps=reps, algorithm=algo_name, algorithm_func=algo_func, configs=configs)
