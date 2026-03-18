@@ -70,9 +70,10 @@ def run_experiments(reps, algorithm, algorithm_func, configs):
 
 if __name__ == "__main__":
     algorithms = {
-        # 'pc': run_pc,   # original PC algorithm
-        # 'ges': run_ges,
-        'hc': run_hc,
+        'pc': run_pc,   # original PC algorithm
+        'pc_gsq':run_pc_gsq,  # PC algorithm with G-square test
+        'ges': run_ges,
+        # 'hc': run_hc,
         # "ea_ues":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0),
         # "ea_ies":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0.5),
         # "ea_fes":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=1),
@@ -82,7 +83,7 @@ if __name__ == "__main__":
 
     
     for algo_name, algo_func in algorithms.items():
-        reps = 2
+        reps = 1
         
         banner = f"""
         🚀 Benchmarking Datasets Process  🚀
