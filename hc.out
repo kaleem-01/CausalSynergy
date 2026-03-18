@@ -16,75 +16,16 @@ on the system, please use 'module avail' or 'module spider' to search for it.
 192
 
 ▶️ Folder:  data/datasets/binary_data
-joblib.externals.loky.process_executor._RemoteTraceback: 
-"""
-Traceback (most recent call last):
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py", line 463, in _process_worker
-    r = call_item()
-        ^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py", line 291, in __call__
-    return self.fn(*self.args, **self.kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 598, in __call__
-    return [func(*args, **kwargs)
-            ^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/metrics/synergy.py", line 217, in classify_collider_by_pid
-    pid._initialise(settings, data, target=2, sources=[0, 1])
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/idtxl/bivariate_pid.py", line 215, in _initialise
-    self._pid_estimator = get_estimator(settings["pid_estimator"], settings)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/idtxl/estimator.py", line 106, in get_estimator
-    EstimatorClass = _find_estimator(est)
-                     ^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/idtxl/estimator.py", line 66, in _find_estimator
-    module = importlib.import_module("." + m, __package__)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/importlib/__init__.py", line 90, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/idtxl/estimators_mpi.py", line 11, in <module>
-    from mpi4py.futures import MPIPoolExecutor
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/futures/__init__.py", line 19, in <module>
-    from .pool import (
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/futures/pool.py", line 13, in <module>
-    from . import _core
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/futures/_core.py", line 22, in <module>
-    from .. import MPI
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1322, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 1262, in _find_spec
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/_mpiabi.py", line 290, in find_spec
-    mpiabi_suffix = _get_mpiabi_suffix(fullname)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/_mpiabi.py", line 276, in _get_mpiabi_suffix
-    mpiabi = _get_mpiabi()
-             ^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/_mpiabi.py", line 258, in _get_mpiabi
-    mpiabi = _get_mpiabi_from_libmpi(libmpi)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/_mpiabi.py", line 217, in _get_mpiabi_from_libmpi
-    lib = _dlopen_libmpi(libmpi)
-          ^^^^^^^^^^^^^^^^^^^^^^
-  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/mpi4py/_mpiabi.py", line 210, in _dlopen_libmpi
-    raise RuntimeError("\n".join(errors))
-RuntimeError: cannot load MPI library
-/home/scur1556/.local/lib: cannot open shared object file: No such file or directory
-/gpfs/home3/scur1556/CausalSynergy/env/lib/libmpi.so: cannot open shared object file: No such file or directory
-/gpfs/home3/scur1556/CausalSynergy/env/lib/libmpi.so.12: cannot open shared object file: No such file or directory
-/gpfs/home3/scur1556/CausalSynergy/env/lib/libmpi.so.40: cannot open shared object file: No such file or directory
-libmpi.so: cannot open shared object file: No such file or directory
-libmpi.so.12: cannot open shared object file: No such file or directory
-libmpi.so.40: cannot open shared object file: No such file or directory
-"""
-
-The above exception was the direct cause of the following exception:
-
+[cli_0]: PMIU_write error; fd=16 buf=:cmd=init pmi_version=1 pmi_subversion=1
+:
+system msg for write_line failure : Bad file descriptor
+[cli_0]: PMIU_write error; fd=16 buf=:cmd=abort exitcode=-1 message=PMI_Init failed
+:
+system msg for write_line failure : Bad file descriptor
+[cli_0]: PMIU_write error; fd=16 buf=:cmd=get_appnum
+:
+system msg for write_line failure : Bad file descriptor
+Abort(15): Fatal error in internal_Init_thread: Other MPI error
 Traceback (most recent call last):
   File "/gpfs/home3/scur1556/CausalSynergy/main_hc.py", line 98, in <module>
     run_algorithm_synthetic(directory=os.path.join("data", "datasets"), n_jobs= mp.cpu_count() - 1, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
@@ -122,13 +63,8 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^^^^^^^^^
   File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 763, in _return_or_raise
     raise self._result
-RuntimeError: cannot load MPI library
-/home/scur1556/.local/lib: cannot open shared object file: No such file or directory
-/gpfs/home3/scur1556/CausalSynergy/env/lib/libmpi.so: cannot open shared object file: No such file or directory
-/gpfs/home3/scur1556/CausalSynergy/env/lib/libmpi.so.12: cannot open shared object file: No such file or directory
-/gpfs/home3/scur1556/CausalSynergy/env/lib/libmpi.so.40: cannot open shared object file: No such file or directory
-libmpi.so: cannot open shared object file: No such file or directory
-libmpi.so.12: cannot open shared object file: No such file or directory
-libmpi.so.40: cannot open shared object file: No such file or directory
-srun: error: tcn967: task 0: Exited with exit code 1
-srun: Terminating StepId=20897954.0
+joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process managed by the executor was unexpectedly terminated. This could be caused by a segmentation fault while calling the function or by an excessive memory usage causing the Operating System to kill the worker.
+
+The exit codes of the workers are {EXIT(15)}
+srun: error: tcn817: task 0: Exited with exit code 1
+srun: Terminating StepId=20898908.0
