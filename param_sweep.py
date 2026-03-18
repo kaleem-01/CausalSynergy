@@ -35,7 +35,7 @@ PARAM_GRID = {
     # "informed_ratio": [0.6, 0.8],
 }
 
-N_REPEATS = 3
+N_REPEATS = 5
 POPULATION_SIZE = 20
 GENERATIONS = 100
 N_JOBS = 1

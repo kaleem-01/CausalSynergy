@@ -12,4 +12,4 @@ module load 2025
 module load Anaconda3/2025.06-1
 
 source env/bin/activate
-srun python test_ea.py
+srun python param_sweep.py
