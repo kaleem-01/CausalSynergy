@@ -5,6 +5,7 @@ from causallearn.utils.cit import chisq, gsq
 from pgmpy.estimators import BIC, GES, HillClimbSearch
 from algorithms.ea import GeneticBNSearchMatrix as GeneticBNSearch
 from utils.graph import dag_to_cpdag
+from algorithms.notears import notears_linear
 
 import logging
 import warnings
@@ -125,4 +126,72 @@ def run_ges(df, cpdag=True):
     scorer = BIC(df)
     learned_dag = nx.DiGraph(estimated_model.edges())
     score = scorer.score(learned_dag)
+    return dag_to_cpdag(learned_dag), score
+
+
+def run_notears(
+    df,
+    lambda1=0.1,
+    loss_type="logistic",
+    max_iter=100,
+    h_tol=1e-8,
+    rho_max=1e16,
+    w_threshold=0.3,
+):
+    """
+    Run linear NOTEARS on a dataframe and return a CPDAG + score,
+    matching the style of run_pc().
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Dataset.
+    lambda1 : float
+        L1 sparsity penalty.
+    loss_type : {"l2", "logistic", "poisson"}
+        For binary data, use "logistic".
+    max_iter : int
+        Max NOTEARS dual ascent steps.
+    h_tol : float
+        Acyclicity tolerance.
+    rho_max : float
+        Maximum penalty parameter.
+    w_threshold : float
+        Absolute threshold for pruning small edge weights.
+
+    Returns
+    -------
+    cpdag : nx.DiGraph
+        CPDAG converted from the learned NOTEARS DAG.
+    score : float
+        BIC score of the learned DAG on df.
+    """
+    X = df.to_numpy(dtype=float)
+    W_est = notears_linear(
+        X=X,
+        lambda1=lambda1,
+        loss_type=loss_type,
+        max_iter=max_iter,
+        h_tol=h_tol,
+        rho_max=rho_max,
+        w_threshold=w_threshold,
+    )
+
+    learned_dag = nx.DiGraph()
+    learned_dag.add_nodes_from(df.columns)
+
+    for i, src in enumerate(df.columns):
+        for j, tgt in enumerate(df.columns):
+            if i != j and W_est[i, j] != 0:
+                learned_dag.add_edge(src, tgt, weight=float(W_est[i, j]))
+
+    if not nx.is_directed_acyclic_graph(learned_dag):
+        raise ValueError(
+            "NOTEARS output is not a DAG after thresholding. "
+            "Try increasing w_threshold or tightening h_tol."
+        )
+
+    scorer = BIC(df)
+    score = scorer.score(learned_dag)
+
     return dag_to_cpdag(learned_dag), score

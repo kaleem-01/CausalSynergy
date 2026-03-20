@@ -611,12 +611,15 @@ def evaluate_colliders(metadata_df, learned_graph, dataset):
         # "TP (Collider Set)": correct,
         # "FP (Collider Set)": extra,
         # "FN (Collider Set)": missing,
+        "Total (Colliders)": len(true_sets),
         "TP (Found Colliders)": len(correct),
         "FP (Extra Colliders)": len(extra),
         "FN (Missing Colliders )": len(missing),
-        "TP (Synergistic Colliders Found)": len(correct_sc),
-        "FN (Missing Synergistic Colliders)": len(missing_sc),
+        "TP (Synergy)": len(correct_sc),
+        "FN (Synergy)": len(missing_sc),
         
+
+        "Total (SC)": len(true_sc_sets),
         "Precision [Collider]": collider_precision,
         "Recall [Collider]": collider_recall,
         "F1 [Collider]": collider_f1,
@@ -625,8 +628,9 @@ def evaluate_colliders(metadata_df, learned_graph, dataset):
         "Recall [Synergy]": sc_recall,
         "F1 [Synergy]": sc_f1,
         
-        "TP (Pairwise Colliders Found)": len(correct_pw),
-        "FN (Missing Pairwise Colliders)": len(missing_pw),
+        "Total (PW)": len(true_pw_sets),
+        "TP (Pairwise)": len(correct_pw),
+        "FN (Pairwise)": len(missing_pw),
         
         "Precision [Pairwise]": pw_precision,
         "Recall [Pairwise]": pw_recall,

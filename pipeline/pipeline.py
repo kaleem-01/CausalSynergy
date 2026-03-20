@@ -338,7 +338,7 @@ class Pipeline:
     # -----------------------------
     # Run replications with resume (UPDATED)
     # -----------------------------
-    def run(self, resume: bool = True, n_jobs: int | None = None, save_each_rep: bool = True):
+    def run(self, resume: bool = True, n_jobs: int | None = None, save_each_rep: bool = False):
         """
         Run the pipeline for all replications, collect results.
 
