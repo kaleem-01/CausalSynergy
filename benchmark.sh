@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=192
 #SBATCH --time=01:00:00
-#SBATCH --output=pc_ges.out
+#SBATCH --output=notears.out
 
 module purge
 module load 2025
