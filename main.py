@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 
 
 def run_algorithm_synthetic(directory, n_jobs=10, reps=2, samples=None, algorithm='ea', algorithm_func=run_ea):
-    childdir = [x[0] for x in os.walk(directory)][1:]  # Skip the root directory
+    childdir = [x[0] for x in os.walk(directory)] # To skip root directory use [1:]
 
     for subdir in childdir:
         tqdm.write(f"\n▶️ Folder:  {subdir}")
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         """
         
         print(mp.cpu_count())
-        run_algorithm_synthetic(directory=os.path.join("data", "datasets"), n_jobs= mp.cpu_count() - 1, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
+        run_algorithm_synthetic(directory=os.path.join("data", "datasets", "jpmf_data"), n_jobs= mp.cpu_count() - 1, reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_algorithm_synthetic(directory=os.path.join("data", "syntheticBinary"), reps=reps, algorithm=algo_name, algorithm_func=algo_func)
         # run_experiments(reps=reps, algorithm=algo_name, algorithm_func=algo_func, configs=configs)
         
