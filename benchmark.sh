@@ -4,8 +4,8 @@
 #SBATCH --job-name=paramsweep
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=192
-#SBATCH --time=01:00:00
-#SBATCH --output=notears.out
+#SBATCH --time=12:00:00
+#SBATCH --output=stdout/jpmf_pid.out
 
 module purge
 module load 2025

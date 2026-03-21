@@ -7,6 +7,7 @@ from idtxl.data import Data
 import pandas as pd
 from typing import List, Sequence, Tuple, Union, Callable, Any
 import pandas as pd
+from idtxl.estimators_pid import TartuPID 
 
 try:
     from joblib import Parallel, delayed
@@ -14,6 +15,46 @@ except ImportError as e:
     raise ImportError(
         "joblib is required for parallel scoring. Install with: pip install joblib"
     ) from e
+
+
+
+def broja_synergy(df, triplet):
+    if len(triplet) != 3:
+        raise ValueError(f"triplet must have length 3, got {len(triplet)}")
+
+    source1, source2, target = triplet
+
+    if not all(isinstance(x, str) for x in (source1, source2, target)):
+        source1, source2, target = map(str, triplet)
+
+
+    s1, _ = pd.factorize(df[source1], sort=True)
+    s2, _ = pd.factorize(df[source2], sort=True)
+    t,  _ = pd.factorize(df[target], sort=True)
+
+    data = Data(np.vstack((s1, s2, t)), 'ps', normalise=False)
+
+    settings = {
+        'alpha': 0.1,
+        'alph_s1': int(s1.max() + 1),
+        'alph_s2': int(s2.max() + 1),
+        'alph_t': int(t.max() + 1),
+        'max_unsuc_swaps_row_parm': 60,
+        'num_reps': 63,
+        'max_iters': 1000,
+        'pid_estimator': 'TartuPID',
+        'verbose': False,
+        'lags_pid': [0, 0],   # or remove if you do not want lagged PID
+    }
+
+    pid_analysis = BivariatePID()
+    results = pid_analysis.analyse_single_target(
+        settings=settings,
+        data=data,
+        target=2,
+        sources=[0, 1],
+    )
+    return results.get_single_target(2)['syn_s1_s2']
 
 
 
