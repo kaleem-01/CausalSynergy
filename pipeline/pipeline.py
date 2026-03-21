@@ -378,7 +378,7 @@ class Pipeline:
         save_path = Path("results") / self.configs.algorithm
         save_path.mkdir(parents=True, exist_ok=True)
 
-        save_file = Path("results") / self.configs.algorithm / f"{Path(self.configs.folder).name}_pid.pkl"  # renamed to _pid.pkl to for newer simulation results
+        save_file = Path("results") / self.configs.algorithm / f"{Path(self.configs.folder).name}.pkl" 
         save_file.parent.mkdir(parents=True, exist_ok=True)
         with save_file.open("wb") as f:
             pickle.dump(self.all_results, f, protocol=pickle.HIGHEST_PROTOCOL)

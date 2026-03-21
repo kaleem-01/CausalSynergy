@@ -77,16 +77,16 @@ if __name__ == "__main__":
         # 'ges': run_ges,
         # 'hc': run_hc,
         # "ea_ues":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0),
-        "ea_ies":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0.5),
-        "ea_fes":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=1),
-        "ea_fg":  partial(run_ea, population_size=30, generations=20, informed_ratio=1, final_greedy=True),
+        "ea_ies_pid":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=0.5),
+        "ea_fes_pid":  partial(run_ea, population_size=30, generations=None, crossover_method='edge_swap', informed_ratio=1),
+        "ea_fg_pid":  partial(run_ea, population_size=30, generations=20, informed_ratio=1, final_greedy=True),
         # "notears": run_notears
     }
 
 
     
     for algo_name, algo_func in algorithms.items():
-        reps = 1
+        reps = 5
         
         banner = f"""
         🚀 Benchmarking Datasets Process  🚀
