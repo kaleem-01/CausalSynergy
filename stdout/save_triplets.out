@@ -1,0 +1,70 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Could not load intermediate results from data/triplets/jpmf_data_pid.pkl. Starting fresh.
+Processing files in data/datasets/jpmf_data:   0%|          | 0/720 [00:00<?, ?it/s][cli_0]: [cli_0]: PMIU_write error; fd=16 buf=:cmd=init pmi_version=1 pmi_subversion=1
+:
+PMIU_write error; fd=16 buf=:cmd=init pmi_version=1 pmi_subversion=1
+:
+system msg for write_line failure : Bad file descriptor
+system msg for write_line failure : Bad file descriptor
+[cli_0]: PMIU_write error; fd=16 buf=:cmd=abort exitcode=-1 message=PMI_Init failed
+:
+system msg for write_line failure : Bad file descriptor
+[cli_0]: [cli_0]: PMIU_write error; fd=16 buf=:cmd=abort exitcode=-1 message=PMI_Init failed
+:
+PMIU_write error; fd=16 buf=:cmd=get_appnum
+:
+system msg for write_line failure : Bad file descriptor
+system msg for write_line failure : Bad file descriptor
+[cli_0]: PMIU_write error; fd=16 buf=:cmd=get_appnum
+:
+system msg for write_line failure : Bad file descriptor
+Abort(15): Fatal error in internal_Init_thread: Other MPI error
+Abort(15): Fatal error in internal_Init_thread: Other MPI error
+Processing files in data/datasets/jpmf_data:   0%|          | 0/720 [00:12<?, ?it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/gpfs/home3/scur1556/CausalSynergy/synthetic/save_triplets.py", line 159, in <module>
+    save_triplet_results(directory)
+  File "/gpfs/home3/scur1556/CausalSynergy/synthetic/save_triplets.py", line 128, in save_triplet_results
+    results_df = get_triplet_results(directory, csv_by_id, metadata_by_id)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home3/scur1556/CausalSynergy/synthetic/save_triplets.py", line 107, in get_triplet_results
+    triplets_dict, triplets = triplets_found(df, metadata_df)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home3/scur1556/CausalSynergy/synthetic/save_triplets.py", line 49, in triplets_found
+    results = Parallel(n_jobs=mp.cpu_count(), backend="loky")(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+                                                ^^^^^^^^^^^^
+  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 1754, in _retrieve
+    self._raise_error_fast()
+  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 1789, in _raise_error_fast
+    error_job.get_result(self.timeout)
+  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 745, in get_result
+    return self._return_or_raise()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home3/scur1556/CausalSynergy/env/lib/python3.12/site-packages/joblib/parallel.py", line 763, in _return_or_raise
+    raise self._result
+joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process managed by the executor was unexpectedly terminated. This could be caused by a segmentation fault while calling the function or by an excessive memory usage causing the Operating System to kill the worker.
+
+The exit codes of the workers are {EXIT(15), EXIT(15)}
+srun: error: tcn997: task 0: Exited with exit code 1
+srun: Terminating StepId=21033180.0
