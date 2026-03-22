@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     
     for algo_name, algo_func in algorithms.items():
-        reps = 5
+        reps = 10
         
         banner = f"""
         🚀 Benchmarking Datasets Process  🚀
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
         
         # time.sleep(2)  # Pause for 2 seconds between different algorithm runs
-        clear_console_soft()
+        # clear_console_soft()
         # print
         
         results_banner = f"""
