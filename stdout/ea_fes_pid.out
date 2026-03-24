@@ -1,0 +1,20 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+192
+
+▶️ Folder:  data/datasets/jpmf_data
+PID_Broja
+Processing CSV files (rep=0):   0%|          | 0/720 [00:00<?, ?it/s]Processing CSV files (rep=0):   0%|          | 1/720 [00:11<2:18:01, 11.52s/it]Processing CSV files (rep=0):   0%|          | 2/720 [00:12<1:00:19,  5.04s/it]Processing CSV files (rep=0):   0%|          | 3/720 [00:14<48:29,  4.06s/it]  Processing CSV files (rep=0):   1%|          | 4/720 [00:15<30:52,  2.59s/it]Processing CSV files (rep=0):   1%|          | 5/720 [00:16<23:02,  1.93s/it]Processing CSV files (rep=0):   1%|          | 6/720 [00:16<17:29,  1.47s/it]Processing CSV files (rep=0):   1%|          | 7/720 [00:18<18:11,  1.53s/it]Processing CSV files (rep=0):   1%|          | 8/720 [00:19<17:55,  1.51s/it]Processing CSV files (rep=0):   1%|▏         | 10/720 [00:20<11:30,  1.03it/s]Processing CSV files (rep=0):   2%|▏         | 11/720 [00:21<12:40,  1.07s/it]Processing CSV files (rep=0):   2%|▏         | 12/720 [00:22<10:53,  1.08it/s]Processing CSV files (rep=0):   2%|▏         | 13/720 [00:22<09:57,  1.18it/s]
