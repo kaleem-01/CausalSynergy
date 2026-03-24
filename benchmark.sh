@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #SBATCH --partition=genoa
-#SBATCH --job-name=paramsweep
+#SBATCH --job-name=ea_hc
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=192
 #SBATCH --time=12:00:00
-#SBATCH --output=stdout/ea_with_pid.out
+#SBATCH --output=stdout/ea_hc.out
 
 module purge
 module load 2025
