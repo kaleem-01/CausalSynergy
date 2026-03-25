@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #SBATCH --partition=genoa
-#SBATCH --job-name=ea_ies_pid
+#SBATCH --job-name=ea_hc_bin
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=192
 #SBATCH --time=12:00:00
-#SBATCH --output=stdout/ea_ies_pid.out
+#SBATCH --output=stdout/ea_hc_bin.out
 
 module purge
 module load 2025

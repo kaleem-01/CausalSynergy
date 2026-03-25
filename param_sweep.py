@@ -36,7 +36,7 @@ PARAM_GRID = {
 }
 
 N_REPEATS = 5
-POPULATION_SIZE = 20
+POPULATION_SIZE = 30
 GENERATIONS = 150
 N_JOBS = 1
 OUTPUT_DIR = Path("results/param_sweeps")
@@ -295,7 +295,7 @@ if __name__ == "__main__":
     import multiprocessing as mp
 
     GENERATIONS = 150
-    POPULATION_SIZE = 20
+    POPULATION_SIZE = 30
     N_REPEATS = 5
     N_JOBS = 1
 
