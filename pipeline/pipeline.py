@@ -188,7 +188,7 @@ class Pipeline:
         # Get synergistic triplets if needed
         if self.configs.algorithm.startswith("ea"):
             # self.triplets_by_id = {}
-            with open(f"data/triplets/{Path(self.configs.folder).name}_pid.pkl", "rb") as f:    # renamed to _pid.pkl to for newer simulation results
+            with open(f"data/triplets/{Path(self.configs.folder).name}.pkl", "rb") as f:    # renamed to _pid.pkl to for newer simulation results
                 triplet_data = pickle.load(f)
             self.triplets_by_id = {result["File"]: result["Triplets"] for result in triplet_data}
             print(triplet_data[0]["Metric"])
