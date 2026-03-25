@@ -191,6 +191,7 @@ class Pipeline:
             with open(f"data/triplets/{Path(self.configs.folder).name}.pkl", "rb") as f:    # renamed to _pid.pkl to for newer simulation results
                 triplet_data = pickle.load(f)
             self.triplets_by_id = {result["File"]: result["Triplets"] for result in triplet_data}
+            print(f"data/triplets/{Path(self.configs.folder).name}.pkl")
             print(triplet_data[0]["Metric"])
 
         if pending:
