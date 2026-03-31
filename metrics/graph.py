@@ -637,6 +637,6 @@ def evaluate_colliders(metadata_df, learned_graph, dataset):
         "F1 [Pairwise]": pw_f1,
 
         # "Recall (Synergy Multi-Parent)": multi_parent_recall,
-    }, correct, missing, extra
+    }
 
 

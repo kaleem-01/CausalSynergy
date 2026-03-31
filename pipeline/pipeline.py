@@ -250,7 +250,7 @@ class Pipeline:
         # IMPORTANT FIX: your ids might not be 0..K-1
         for idx in range(len(self.true_graphs.keys())):
             self.eval_metrics[idx] = compare_cpdags(true_graph=self.true_graphs[idx], learned_graph=self.learned_graphs[idx])
-            collider_metrics, _, _, _ = self.evaluate_colliders(idx)
+            collider_metrics = self.evaluate_colliders(idx)
             self.eval_metrics[idx].update(collider_metrics)
             self.eval_metrics[idx].update(self.df_by_id[idx].attrs)
             # self.eval_metrics[idx]["ID"] = idx
@@ -339,7 +339,7 @@ class Pipeline:
     # -----------------------------
     # Run replications with resume (UPDATED)
     # -----------------------------
-    def run(self, resume: bool = True, n_jobs: int | None = None, save_each_rep: bool = False):
+    def run(self, resume: bool = True, n_jobs: int | None = None, save_each_rep: bool = True):
         """
         Run the pipeline for all replications, collect results.
 

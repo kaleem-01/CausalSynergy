@@ -434,7 +434,7 @@ def plot_metric_vs_x(long_df, metric_col, x_col, title, ylabel=None, by=None, ba
     return fig, ax
 
 
-def plot_final_metric_vs_x(results_by_label, subset_metrics,
+def plot_final_metric_vs_x(long_df,
                            metric_col, x_col, title_suffix=None, ylabel=None,
                            by=None, band="std",
                            ncols=None, figsize_per_col=(5, 4),
@@ -476,10 +476,9 @@ def plot_final_metric_vs_x(results_by_label, subset_metrics,
     -------
     fig, axes
     """
-    if not isinstance(results_by_label, dict) or len(results_by_label) == 0:
-        raise ValueError("results_by_label must be a non-empty dict like {'PC': results_pc, ...}.")
+    
 
-    labels = list(results_by_label.keys())
+    labels = sorted(long_df["Algorithm"].unique())
     k = len(labels)
 
     # Choose subplot layout
@@ -505,9 +504,6 @@ def plot_final_metric_vs_x(results_by_label, subset_metrics,
 
     # Build and plot each panel
     for i, label in enumerate(labels):
-        results = results_by_label[label]
-
-        long_df = stack_replication_metrics(results, metrics=subset_metrics)
 
         # Helpful early failure if user forgets to include needed columns
         missing = [c for c in [metric_col, x_col] + ([by] if by else []) if c not in long_df.columns]
@@ -530,7 +526,7 @@ def plot_final_metric_vs_x(results_by_label, subset_metrics,
         )
 
     # Hide any unused axes
-    for j in range(k, len(axes_list)):
+    for j in range(0, len(axes_list)):
         axes_list[j].set_visible(False)
         
 
