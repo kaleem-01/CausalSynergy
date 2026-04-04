@@ -521,7 +521,7 @@ def _normalize_learned_triplet(t):
     return (a, b, int(col))
 
 
-def evaluate_colliders(metadata_df, learned_graph, dataset):
+def evaluate_colliders(metadata_df, learned_graph, dataset, return_sets=False):
     # Decide which Type is considered "synergistic"
     # learned_graph = nx.relabel_nodes(learned_graph, lambda x: int(x))
     
@@ -606,6 +606,9 @@ def evaluate_colliders(metadata_df, learned_graph, dataset):
         2 * pw_precision * pw_recall / (pw_precision + pw_recall)
         if (pw_precision + pw_recall) > 0 else 0.0
     )
+
+    if return_sets:
+        return {"learned_colliders": learned_sets, "correct_sc": correct_sc, "missing_sc": missing_sc, "extra_sc": extra_sc, "correct_pw": correct_pw, "missing_pw": missing_pw, "extra_pw": extra_pw}
 
     return {
         # "TP (Collider Set)": correct,
