@@ -81,7 +81,30 @@ def pivot_grid(long_df, index, column, value_col, aggfunc="max"):
             .sort_index(axis=1))
     return grid
 
+def _eval_to_df(eval_metrics):
+    if eval_metrics is None:
+        return None
+    if isinstance(eval_metrics, pd.DataFrame):
+        return eval_metrics.copy()
+    if isinstance(eval_metrics, pd.Series):
+        return eval_metrics.to_frame().T
+    if isinstance(eval_metrics, dict):
+        return pd.DataFrame([eval_metrics])
+    return None
 
+def build_long_metrics(results_by_label):
+    rows = []
+    for alg, results_list in results_by_label.items():
+        for i, res in enumerate(results_list):
+            em = getattr(res, "eval_metrics", None)
+            df_em = _eval_to_df(em)
+            if df_em is None or len(df_em) == 0:
+                continue
+            df_em = df_em.copy()
+            df_em["Algorithm"] = alg
+            df_em["run_id"] = i
+            rows.append(df_em)
+    return pd.concat(rows, ignore_index=True)
 
 
 # def plot_heatmap_from_grid(grid, title, xlabel=None, ylabel=None, cbar_label=None, ax=None):
@@ -258,8 +281,7 @@ def _global_minmax(arrays, robust=False, q=(2, 98), symmetric=False):
 
 
 def plot_final_heatmap(
-    results_by_label,
-    subset_metrics,
+    df,
     plot_metric,
     x_col="samples",
     y_col="p_noise",
@@ -273,6 +295,8 @@ def plot_final_heatmap(
     robust_q=(2, 98),
     symmetric=False,
     fixed_vmin=None,
+    x_label=None,
+    y_label=None,
     fixed_vmax=None,
     cmap=None,
     single_colorbar=True,
@@ -295,10 +319,7 @@ def plot_final_heatmap(
     single_colorbar : bool
         If True, draw one shared colorbar for the whole figure (recommended when standardized).
     """
-    if not isinstance(results_by_label, dict) or len(results_by_label) == 0:
-        raise ValueError("results_by_label must be a non-empty dict like {'PC': results_pc, ...}.")
-
-    labels = list(results_by_label.keys())
+    labels = df["Algorithm"].unique()
     k = len(labels)
 
     # Choose subplot layout
@@ -321,12 +342,12 @@ def plot_final_heatmap(
     grids_by_label = {}
     grid_arrays = []
     for label in labels:
-        results = results_by_label[label]
-        df = stack_replication_metrics(results, metrics=subset_metrics)
+        results = df[df["Algorithm"] == label]
+        
         if filter is not None:
             filter_col, filter_val = filter
-            df = df[df[filter_col] == filter_val]
-        grid = pivot_grid(df, index=y_col, column=x_col, value_col=plot_metric, aggfunc=aggfunc)
+            results = results[results[filter_col] == filter_val]
+        grid = pivot_grid(results, index=y_col, column=x_col, value_col=plot_metric, aggfunc=aggfunc)
         grids_by_label[label] = grid
         grid_arrays.append(grid.to_numpy(dtype=float))
 
@@ -363,8 +384,8 @@ def plot_final_heatmap(
             vmax=None if standardize_colors else fixed_vmax,
             add_colorbar=(not single_colorbar) or (not standardize_colors),
         )
-        ax.set_xlabel(x_col)
-        ax.set_ylabel(y_col)
+        ax.set_xlabel(x_col if x_label is None else x_label)
+        ax.set_ylabel(y_col if y_label is None else y_label)
         last_im = im
 
     # Hide unused axes
@@ -378,7 +399,9 @@ def plot_final_heatmap(
 
     return fig, axes
 
-def plot_metric_vs_x(long_df, metric_col, x_col, title, ylabel=None, by=None, band="std", ax=None):
+
+
+def plot_metric_vs_x(long_df, metric_col, x_col, title=None, ylabel=None, by=None, band="std", ax=None):
     """
     Line plot of metric vs x_col with mean ± std (or sem) bands.
     If `by` is set, draws one line per group.
@@ -390,55 +413,79 @@ def plot_metric_vs_x(long_df, metric_col, x_col, title, ylabel=None, by=None, ba
 
     group_cols = [x_col] if by is None else [by, x_col]
 
-    stats = (long_df
-             .groupby(group_cols, as_index=False)[metric_col]
-             .agg(mean="mean", std="std", count="count")
-             .sort_values(group_cols))
+    stats = (
+        long_df
+        .groupby(group_cols, as_index=False)[metric_col]
+        .agg(mean="mean", std="std", count="count")
+        .sort_values(group_cols)
+    )
 
     if by is None:
-        x = stats[x_col].to_numpy()
-        y = stats["mean"].to_numpy()
+        x = stats[x_col].to_numpy(dtype=float)
+        y = stats["mean"].to_numpy(dtype=float)
+
         ax.plot(x, y, marker="o")
 
         if band is not None:
             if band == "std":
-                s = stats["std"].to_numpy()
+                s = stats["std"].fillna(0).to_numpy(dtype=float)
             elif band == "sem":
-                s = stats["std"].to_numpy() / np.sqrt(np.maximum(stats["count"].to_numpy(), 1))
+                s = (
+                    stats["std"].fillna(0).to_numpy(dtype=float)
+                    / np.sqrt(np.maximum(stats["count"].to_numpy(dtype=float), 1))
+                )
             else:
                 raise ValueError("band must be one of: None, 'std', 'sem'")
+
             ax.fill_between(x, y - s, y + s, alpha=0.2)
+
     else:
         for key, g in stats.groupby(by):
-            x = g[x_col].to_numpy()
-            y = g["mean"].to_numpy()
+            x = g[x_col].to_numpy(dtype=float)
+            y = g["mean"].to_numpy(dtype=float)
 
-            ax.plot(x, y, marker="o", label=f"{by}={key}")
+            ax.plot(x, y, marker="o", label=str(key))
 
             if band is not None:
                 if band == "std":
-                    s = g["std"].to_numpy()
+                    s = g["std"].fillna(0).to_numpy(dtype=float)
                 elif band == "sem":
-                    s = g["std"].to_numpy() / np.sqrt(np.maximum(g["count"].to_numpy(), 1))
+                    s = (
+                        g["std"].fillna(0).to_numpy(dtype=float)
+                        / np.sqrt(np.maximum(g["count"].to_numpy(dtype=float), 1))
+                    )
                 else:
                     raise ValueError("band must be one of: None, 'std', 'sem'")
+
                 ax.fill_between(x, y - s, y + s, alpha=0.2)
-
-
-    # ax.legend()
 
     ax.set_xlabel(x_col)
     ax.set_ylabel(ylabel if ylabel else metric_col)
-    ax.set_title(title)
+
+    if title is not None:
+        ax.set_title(title)
 
     return fig, ax
 
 
-def plot_final_metric_vs_x(long_df,
-                           metric_col, x_col, title_suffix=None, ylabel=None,
-                           by=None, band="std",
-                           ncols=None, figsize_per_col=(5, 4),
-                           sharey=True, sharex=False):
+def plot_final_metric_vs_x(
+    df,
+    metric_col,
+    x_col,
+    filter=None,
+    ylabel=None,
+    by=None,
+    band="std",
+    ncols=None,
+    figsize_per_col=(5, 4),
+    sharey=True,
+    sharex=False,
+    shared_legend=True,
+    legend_loc="lower center",
+    legend_bbox_to_anchor=(0.5, -0.02),
+    legend_ncol=None,
+    legend_title=None,
+):
     """
     Plot metric-vs-x panels for an arbitrary number of algorithms/results,
     taking the SAME kind of input as `plot_final_heatmap` (label -> results),
@@ -452,16 +499,16 @@ def plot_final_metric_vs_x(long_df,
     subset_metrics : list[str]
         Metrics to stack so `metric_col` is available.
     metric_col : str
-        Metric column to plot on y-axis (must exist after stacking).
+        Metric column to plot on y-axis.
     x_col : str
-        Column to plot on x-axis (must exist in stacked df).
-    title_suffix : str | None
-        Optional extra text appended to each panel title.
+        Column to plot on x-axis.
+    filter : tuple[str, Any] | None
+        Optional filter of the form (column, value).
     ylabel : str | None
         Y-axis label; defaults to metric_col.
     by : str | None
-        If provided, one line per group (legend per panel).
-    band : {"std","sem",None}
+        If provided, one line per group.
+    band : {"std", "sem", None}
         Uncertainty band type.
     ncols : int | None
         Number of columns in subplot grid. If None: uses up to 4 columns.
@@ -471,63 +518,120 @@ def plot_final_metric_vs_x(long_df,
         Share y-axis across panels.
     sharex : bool
         Share x-axis across panels.
+    shared_legend : bool
+        Whether to draw a single shared legend for all panels.
+    legend_loc : str
+        Legend location for fig.legend.
+    legend_bbox_to_anchor : tuple[float, float]
+        Legend anchor for fig.legend.
+    legend_ncol : int | None
+        Number of legend columns. If None, uses number of unique legend entries.
+    legend_title : str | None
+        Legend title. Defaults to `by`.
 
     Returns
     -------
     fig, axes
     """
-    
-
-    labels = sorted(long_df["Algorithm"].unique())
+   
+    labels = df["Algorithm"].unique()
     k = len(labels)
 
-    # Choose subplot layout
     if ncols is None:
         ncols = min(4, k)
     nrows = (k + ncols - 1) // ncols
 
     fig_w = figsize_per_col[0] * ncols
     fig_h = figsize_per_col[1] * nrows
+
+    # Use tight_layout manually later so legend space can be reserved.
     fig, axes = plt.subplots(
-        nrows, ncols,
+        nrows,
+        ncols,
         figsize=(fig_w, fig_h),
-        constrained_layout=True,
         sharey=sharey,
-        sharex=sharex
+        sharex=sharex,
     )
 
-    # Make axes always iterable
     if k == 1:
         axes_list = [axes]
     else:
-        axes_list = list(axes.ravel())
+        axes_list = list(np.ravel(axes))
 
-    # Build and plot each panel
     for i, label in enumerate(labels):
+        results = df[df["Algorithm"] == label]
+        # print(results["Algorithm"].unique())
 
-        # Helpful early failure if user forgets to include needed columns
-        missing = [c for c in [metric_col, x_col] + ([by] if by else []) if c not in long_df.columns]
+        # df = stack_replication_metrics(results, metrics=subset_metrics)
+
+        if filter is not None:
+            filter_col, filter_val = filter
+            results = results[results[filter_col] == filter_val]
+
+        needed = [metric_col, x_col] + ([by] if by else [])
+        missing = [c for c in needed if c not in df.columns]
         if missing:
             raise KeyError(
                 f"[{label}] stacked df is missing columns: {missing}. "
-                f"Available columns: {list(long_df.columns)}"
+                f"Available columns: {list(df.columns)}"
             )
 
-        suffix = f" ({title_suffix})" if title_suffix else ""
         plot_metric_vs_x(
-            long_df,
+            results,
             metric_col=metric_col,
             x_col=x_col,
-            title=f"{label} – {metric_col} vs {x_col}{suffix}",
+            title=label,
             ylabel=ylabel if ylabel else metric_col,
             by=by,
             band=band,
-            ax=axes_list[i]
+            ax=axes_list[i],
         )
 
-    # Hide any unused axes
-    for j in range(0, len(axes_list)):
+    # Hide unused axes
+    for j in range(k, len(axes_list)):
         axes_list[j].set_visible(False)
-        
+
+    # Shared legend
+    if shared_legend and by is not None:
+        handles_all = []
+        labels_all = []
+
+        for ax in axes_list[:k]:
+            h, l = ax.get_legend_handles_labels()
+            handles_all.extend(h)
+            labels_all.extend(l)
+
+        # Deduplicate while preserving order
+        seen = set()
+        uniq_handles = []
+        uniq_labels = []
+        for h, l in zip(handles_all, labels_all):
+            if l not in seen:
+                seen.add(l)
+                uniq_handles.append(h)
+                uniq_labels.append(l)
+
+        if legend_ncol is None:
+            legend_ncol = len(uniq_labels)
+
+        fig.legend(
+            uniq_handles,
+            uniq_labels,
+            loc=legend_loc,
+            bbox_to_anchor=legend_bbox_to_anchor,
+            ncol=legend_ncol,
+            title=legend_title if legend_title is not None else by,
+            frameon=True,
+        )
+
+        # Reserve extra space at the bottom for the legend
+        if legend_loc.startswith("lower"):
+            fig.tight_layout(rect=[0, 0.08, 1, 1])
+        elif legend_loc.startswith("upper"):
+            fig.tight_layout(rect=[0, 0, 1, 0.92])
+        else:
+            fig.tight_layout()
+    else:
+        fig.tight_layout()
 
     return fig, axes
