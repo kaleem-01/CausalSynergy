@@ -1,0 +1,21 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+192
+
+▶️ Folder:  data/datasets/binary_data
+data/triplets/binary_data.pkl
+InteractionInformation
+Processing CSV files (rep=0):   0%|          | 0/810 [00:00<?, ?it/s]Processing CSV files (rep=0):   0%|          | 1/810 [00:42<9:30:14, 42.29s/it]Processing CSV files (rep=0):   0%|          | 2/810 [00:43<4:02:56, 18.04s/it]Processing CSV files (rep=0):   0%|          | 3/810 [00:43<2:13:06,  9.90s/it]Processing CSV files (rep=0):   0%|          | 4/810 [00:43<1:21:18,  6.05s/it]Processing CSV files (rep=0):   1%|          | 5/810 [00:44<54:15,  4.04s/it]  Processing CSV files (rep=0):   1%|          | 6/810 [00:45<39:33,  2.95s/it]Processing CSV files (rep=0):   1%|          | 7/810 [00:46<32:02,  2.39s/it]Processing CSV files (rep=0):   1%|          | 9/810 [00:46<16:58,  1.27s/it]Processing CSV files (rep=0):   1%|          | 10/810 [00:47<17:24,  1.31s/it]Processing CSV files (rep=0):   1%|▏         | 11/810 [00:48<16:24,  1.23s/it]Processing CSV files (rep=0):   1%|▏         | 12/810 [00:49<14:27,  1.09s/it]Processing CSV files (rep=0):   2%|▏         | 13/810 [00:49<11:18,  1.17it/s]Processing CSV files (rep=0):   2%|▏         | 14/810 [00:50<11:04,  1.20it/s]Processing CSV files (rep=0):   2%|▏         | 15/810 [00:50<09:04,  1.46it/s]Processing CSV files (rep=0):   2%|▏         | 17/810 [00:51<06:59,  1.89it/s]Processing CSV files (rep=0):   2%|▏         | 18/810 [00:51<05:54,  2.23it/s]Processing CSV files (rep=0):   2%|▏         | 19/810 [00:52<05:41,  2.32it/s]Processing CSV files (rep=0):   2%|▏         | 20/810 [00:52<05:11,  2.54it/s]Processing CSV files (rep=0):   3%|▎         | 21/810 [00:53<05:51,  2.25it/s]Processing CSV files (rep=0):   3%|▎         | 22/810 [00:54<08:56,  1.47it/s]Processing CSV files (rep=0):   3%|▎         | 23/810 [00:54<08:12,  1.60it/s]Processing CSV files (rep=0):   3%|▎         | 24/810 [00:55<08:55,  1.47it/s]Processing CSV files (rep=0):   3%|▎         | 26/810 [00:56<06:55,  1.89it/s]Processing CSV files (rep=0):   3%|▎         | 27/810 [00:57<07:46,  1.68it/s]Processing CSV files (rep=0):   3%|▎         | 
